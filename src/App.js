@@ -15,8 +15,8 @@ function App() {
       setLoading(false);
     });
 
-    return () => undefined;
-  }, []);
+    return () => undefined; // Is that necessary?
+  }, []); // Empty dependencies array => runs only after the component renders the first time
 
   return (
     <div className="container">
