@@ -1,14 +1,16 @@
-import { Fragment } from 'react';
 import * as d3 from 'd3';
+
+import Card from '../UI/Card';
 import ChartContainer from '../ChartComponents/ChartContainer';
 import Circle from '../ChartComponents/Circle';
 import Axis from '../ChartComponents/Axis';
 
 const Scatterplot = props => {
-  const width = 500;
-  const height = 350;
+  const width = 300;
+  const height = 245;
+  const marginBottom = 50;
   const innerWidth = width - props.margin.left - props.margin.right;
-  const innerHeight = height - props.margin.top - props.margin.bottom;
+  const innerHeight = height - props.margin.top - marginBottom;
 
   const xScale = d3.scaleLinear()
     .domain([0, d3.max(props.data, d => d.user_count)])
@@ -19,7 +21,7 @@ const Scatterplot = props => {
     .range([innerHeight, 0]);
 
   return (
-    <Fragment>
+    <Card>
       <h2>Retention vs Usage</h2>
       <ChartContainer
         width={width}
@@ -50,7 +52,7 @@ const Scatterplot = props => {
           />
         ))}
       </ChartContainer>
-    </Fragment>
+    </Card>
   )
 };
 

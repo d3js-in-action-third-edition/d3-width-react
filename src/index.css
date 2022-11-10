@@ -27,10 +27,9 @@ h1 {
   font-size: 4.5rem;
 }
 h2 {
-  margin: 5rem 0 1rem;
+  margin: 0;
   font-size: 2.8rem;
   line-height: 1.2;
-  border-bottom: 1px solid #06273b;
 }
 @media screen and (max-width: 596px) {
   h1 {

@@ -1,12 +1,13 @@
-import { Fragment } from 'react';
 import * as d3 from 'd3';
+
+import Card from '../UI/Card';
 import ChartContainer from '../ChartComponents/ChartContainer';
 import Axis from '../ChartComponents/Axis';
 import Rectangle from '../ChartComponents/Rectangle';
 
 const BarChart = props => {
-  const width = 500;
-  const height = 350;
+  const width = 300;
+  const height = 245;
   const innerWidth = width - props.margin.left - props.margin.right;
   const innerHeight = height - props.margin.top - props.margin.bottom;
 
@@ -30,7 +31,7 @@ const BarChart = props => {
     .range([innerHeight, 0]);
 
   return (
-    <Fragment>
+    <Card>
       <h2>Awareness</h2>
       <ChartContainer
         width={width}
@@ -64,7 +65,7 @@ const BarChart = props => {
           />
         ))}
       </ChartContainer>
-    </Fragment>
+    </Card>
   )
 };
 

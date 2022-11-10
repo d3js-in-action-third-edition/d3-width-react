@@ -1,14 +1,16 @@
 import { Fragment } from 'react';
 import * as d3 from 'd3';
+
+import Card from '../UI/Card';
 import ChartContainer from '../ChartComponents/ChartContainer';
 import Axis from '../ChartComponents/Axis';
 import Curve from '../ChartComponents/Curve';
 import Circle from '../ChartComponents/Circle';
 
 const UsageRanking = props => {
-  const width = 1200;
-  const height = 500;
-  const margin = {top: 30, right: 110, bottom: 40, left: 110};
+  const width = 1000;
+  const height = 600;
+  const margin = {top: 45, right: 150, bottom: 60, left: 110};
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
@@ -20,7 +22,7 @@ const UsageRanking = props => {
     .range([0, innerHeight]);
 
   return (
-    <Fragment>
+    <Card>
       <h2>Usage Rankings</h2>
       <ChartContainer
         width={width}
@@ -108,7 +110,7 @@ const UsageRanking = props => {
           </g>
         ))}
       </ChartContainer>
-    </Fragment>
+    </Card>
   )
 };
 

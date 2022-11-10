@@ -51,7 +51,7 @@ const AxisLeft = props => {
       <text
         className="axis-label"
         textAnchor="middle"
-        transform={`translate(-45, ${props.innerHeight / 2}) rotate(-90)`}
+        transform={`translate(-42, ${props.innerHeight / 2}) rotate(-90)`}
       >
         {props.label}
       </text>
