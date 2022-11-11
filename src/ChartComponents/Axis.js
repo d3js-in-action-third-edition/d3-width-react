@@ -1,3 +1,5 @@
+import * as d3 from 'd3';
+
 import "./Axis.css";
 
 const AxisBottom = props => {
@@ -14,7 +16,10 @@ const AxisBottom = props => {
         y={20}
         textAnchor="middle"
       >
-        {tick}
+        {props.ticksFormat === "date"
+          ? d3.timeFormat("%Y")(tick)
+          : tick
+        }
       </text>
     ))}
     {props.label &&
@@ -44,7 +49,10 @@ const AxisLeft = props => {
         textAnchor="end"
         alignmentBaseline="middle"
       >
-        {tick}
+        {props.ticksFormat === "millions"
+          ? d3.format(".2s")(tick)
+          : tick
+        }
       </text>
     ))}
     {props.label &&
@@ -75,7 +83,7 @@ const AxisBandBottom = props => {
         alignmentBaseline="middle"
         transform={props.rotateTickLabels
           ? `translate(${props.scale(tick) + props.scale.bandwidth() / 2}, 8) rotate(-90)`
-          : `translate(${props.scale(tick) + props.scale.bandwidth() / 2}, 35)`
+          : `translate(${props.scale(tick) + props.scale.bandwidth() / 2}, 40)`
         }
       >
         {tick}

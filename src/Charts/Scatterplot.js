@@ -8,9 +8,8 @@ import Axis from '../ChartComponents/Axis';
 const Scatterplot = props => {
   const width = 300;
   const height = 245;
-  const marginBottom = 50;
   const innerWidth = width - props.margin.left - props.margin.right;
-  const innerHeight = height - props.margin.top - marginBottom;
+  const innerHeight = height - props.margin.top - props.margin.bottom;
 
   const xScale = d3.scaleLinear()
     .domain([0, d3.max(props.data, d => d.user_count)])

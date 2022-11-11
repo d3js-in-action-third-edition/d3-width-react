@@ -11,6 +11,11 @@ function App() {
     
     d3.json(dataURL).then(data => {
       console.log("data", data);
+
+      data.npm_monthly_downloads.forEach(d => {
+        d.date = new Date(d.date);
+      });
+
       setData(data);
       setLoading(false);
     });

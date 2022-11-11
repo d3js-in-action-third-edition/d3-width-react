@@ -1,12 +1,12 @@
 import { Fragment } from 'react';
 import * as d3 from 'd3';
 
-import UsageRanking from './UsageRanking';
+import Rankings from './Rankings';
 import Scatterplot from './Scatterplot';
 import BarChart from './BarChart';
 
 const Charts = props => {
-  const margin = {top: 30, right: 10, bottom: 85, left: 60};
+  const margin = {top: 30, right: 10, bottom: 50, left: 60};
 
   const colorScale = d3.scaleOrdinal()
     .domain(props.data.ids.map(id => id))
@@ -17,7 +17,7 @@ const Charts = props => {
       <h1>Front-end Frameworks</h1>
       <div className='row'>
         <div className='col-9'>
-          <UsageRanking 
+          <Rankings
             data={props.data}
             colorScale={colorScale}
           />

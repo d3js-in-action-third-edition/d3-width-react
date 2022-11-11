@@ -8,8 +8,9 @@ import Rectangle from '../ChartComponents/Rectangle';
 const BarChart = props => {
   const width = 300;
   const height = 245;
+  const marginBottom = 85;
   const innerWidth = width - props.margin.left - props.margin.right;
-  const innerHeight = height - props.margin.top - props.margin.bottom;
+  const innerHeight = height - props.margin.top - marginBottom;
 
   const awarenessData = [];
   props.data.forEach(d => {
