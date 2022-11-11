@@ -31,6 +31,10 @@ const BarChart = props => {
     .domain([0, 100])
     .range([innerHeight, 0]);
 
+  const mouseEventHandler = (id) => {
+    props.onMouseEvents(id);
+  };
+
   return (
     <Card>
       <h2>Awareness</h2>
@@ -55,14 +59,17 @@ const BarChart = props => {
           innerHeight={innerHeight}
           label={"Awareness %"}
         />
-        {awarenessData.map(d => (
+        {awarenessData.map(framework => (
           <Rectangle
-            key={`rectangle-${d.id}`}
-            x={xScale(d.name)}
-            y={yScale(d.awareness_percentage)}
+            key={`rectangle-${framework.id}`}
+            framework={framework.id}
+            x={xScale(framework.name)}
+            y={yScale(framework.awareness_percentage)}
             width={xScale.bandwidth()}
-            height={innerHeight - yScale(d.awareness_percentage)}
-            fill={props.colorScale(d.id)}
+            height={innerHeight - yScale(framework.awareness_percentage)}
+            fill={props.colorScale(framework.id)}
+            isInactive={props.highlightedFramework.length > 0 && props.highlightedFramework !== framework.id}
+            onMouseEvents={mouseEventHandler}
           />
         ))}
       </ChartContainer>

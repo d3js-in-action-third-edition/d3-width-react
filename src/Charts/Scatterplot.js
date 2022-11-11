@@ -19,6 +19,10 @@ const Scatterplot = props => {
     .domain([0, 100])
     .range([innerHeight, 0]);
 
+  const mouseEventHandler = (id) => {
+    props.onMouseEvents(id);
+  };
+
   return (
     <Card>
       <h2>Retention vs Usage</h2>
@@ -41,13 +45,16 @@ const Scatterplot = props => {
           innerHeight={innerHeight}
           label={"Retention %"}
         />
-        {props.data.map(datum => (
+        {props.data.map(framework => (
           <Circle 
-            key={`circle-${datum.id}`}
-            cx={xScale(datum.user_count)}
-            cy={yScale(datum.retention_percentage)}
+            key={`circle-${framework.id}`}
+            framework={framework.id}
+            cx={xScale(framework.user_count)}
+            cy={yScale(framework.retention_percentage)}
             r={6}
-            fill={props.colorScale(datum.id)}
+            fill={props.colorScale(framework.id)}
+            isInactive={props.highlightedFramework.length > 0 && props.highlightedFramework !== framework.id}
+            onMouseEvents={mouseEventHandler}
           />
         ))}
       </ChartContainer>

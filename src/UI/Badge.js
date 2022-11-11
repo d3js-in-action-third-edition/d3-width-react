@@ -23,8 +23,12 @@ const Badge = props => {
         fill={"#fff"}
         stroke={props.strokeColor}
         strokeWidth={3} 
+        isInactive={props.isInactive}
+        isBadge={true}
+        onMouseEvents={() => {}}
       />
       <text
+        className={props.isInactive ? "inactive" : ""}
         textAnchor="middle"
         alignmentBaseline="middle"
         fill="#374f5e"

@@ -19,6 +19,7 @@ const Curve = props => {
 
   return <path 
             ref={pathRef}
+            className={props.isInactive ? "inactive" : ""}
             fill="none" 
             stroke={props.stroke} 
             strokeWidth={props.strokeWidth}

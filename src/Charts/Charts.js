@@ -1,16 +1,26 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import * as d3 from 'd3';
 
 import Rankings from './Rankings';
 import Scatterplot from './Scatterplot';
 import BarChart from './BarChart';
 
+import '../Interactions/Interactions.css';
+
 const Charts = props => {
+  const [highlightedFramework, setHighlightedFramework] = useState("");
+
   const margin = {top: 30, right: 10, bottom: 50, left: 60};
 
   const colorScale = d3.scaleOrdinal()
     .domain(props.data.ids.map(id => id))
     .range(d3.schemeTableau10);
+
+  const highlightedFrameworkHandler = (id) => {
+    if (highlightedFramework !== id) {
+      setHighlightedFramework(id);
+    }
+  };
   
   return (
     <Fragment>
@@ -20,6 +30,8 @@ const Charts = props => {
           <Rankings
             data={props.data}
             colorScale={colorScale}
+            highlightedFramework={highlightedFramework}
+            onMouseEvents={highlightedFrameworkHandler}
           />
         </div>
         <div className='col-3'>
@@ -29,6 +41,8 @@ const Charts = props => {
                 data={props.data.experience} 
                 margin={margin} 
                 colorScale={colorScale}
+                highlightedFramework={highlightedFramework}
+                onMouseEvents={highlightedFrameworkHandler}
               />
             </div>
             <div className='col-12'>
@@ -36,6 +50,8 @@ const Charts = props => {
                 data={props.data.experience} 
                 margin={margin} 
                 colorScale={colorScale}
+                highlightedFramework={highlightedFramework}
+                onMouseEvents={highlightedFrameworkHandler}
               />
             </div>
           </div>

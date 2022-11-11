@@ -38,6 +38,14 @@ const Rankings = props => {
     }
   };
 
+  const mouseEnterHandler = (id) => {
+    props.onMouseEvents(id);
+  };
+
+  const mouseLeaveHandler = () => {
+    props.onMouseEvents("");
+  };
+
   const t = d3.transition()
     .duration(400)
     .ease(d3.easeBackOut);
@@ -76,7 +84,11 @@ const Rankings = props => {
           />
         ))}
         {props.data.experience.map((framework, i) => (
-          <g key={`curve-${framework.id}`}>
+          <g 
+            key={`curve-${framework.id}`}
+            onMouseEnter={() => mouseEnterHandler(framework.id)}
+            onMouseLeave={mouseLeaveHandler}
+          >
             <Curve
               data={framework[activeFilter]}
               xScale={xScale}
@@ -86,6 +98,7 @@ const Rankings = props => {
               stroke={props.colorScale(framework.id)}
               strokeWidth={5}
               transition={t}
+              isInactive={props.highlightedFramework.length > 0 && props.highlightedFramework !== framework.id}
             />
             {framework[activeFilter][0].rank &&
               <Label
@@ -95,6 +108,7 @@ const Rankings = props => {
                 label={framework.name}
                 textAnchor={"end"}
                 transition={t}
+                isInactive={props.highlightedFramework.length > 0 && props.highlightedFramework !== framework.id}
               />
             }
             <Label
@@ -104,6 +118,7 @@ const Rankings = props => {
               label={framework.name}
               textAnchor={"start"}
               transition={t}
+              isInactive={props.highlightedFramework.length > 0 && props.highlightedFramework !== framework.id}
             />
             {framework[activeFilter].map((selection, i) => (
               <Fragment key={`${framework.id}-selection-${i}`}>
@@ -113,6 +128,7 @@ const Rankings = props => {
                     strokeColor={props.colorScale(framework.id)}
                     label={`${Math.round(selection.percentage_question)}%`}
                     transition={t}
+                    isInactive={props.highlightedFramework.length > 0 && props.highlightedFramework !== framework.id}
                   />
                 }
               </Fragment>

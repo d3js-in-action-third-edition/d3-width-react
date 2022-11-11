@@ -14,6 +14,7 @@ const Label = props => {
   return (
     <text
       ref={labelRef}
+      className={props.isInactive ? "inactive" : ""}
       x={props.x}
       fill={props.color}
       style={{ fontWeight: "bold" }}
