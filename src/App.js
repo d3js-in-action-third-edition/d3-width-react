@@ -1,10 +1,11 @@
-import * as d3 from 'd3';
 import { useState, useEffect } from 'react';
+import * as d3 from 'd3';
+
 import Charts from './Charts/Charts';
 
-function App() {
-  const [data, setData] = useState([]);
+const App = () => {
   const [loading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const dataURL = "https://d3js-in-action-third-edition.github.io/hosted-data/apis/front_end_frameworks.json";
@@ -16,15 +17,14 @@ function App() {
       setLoading(false);
     });
 
-    return () => undefined; // Is that necessary?
-  }, []); // Empty dependencies array => runs only after the component renders the first time
+  }, []);
 
   return (
     <div className="container">
-      {loading && <div>Loading...</div>}
+      {loading && <div className="loading">Loading...</div>}
       {!loading && <Charts data={data} />}
     </div>
   );
-}
+};
 
 export default App;

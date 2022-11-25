@@ -1,10 +1,9 @@
-import React, { Fragment, useState } from 'react';
-import * as d3 from 'd3';
+import { useState, Fragment } from 'react';
+import * as d3 from "d3";
 
 import RankingFilters from '../Interactions/RankingFilters';
 import Card from '../UI/Card';
 import ChartContainer from '../ChartComponents/ChartContainer';
-import Axis from '../ChartComponents/Axis';
 import Curve from '../ChartComponents/Curve';
 import Label from '../ChartComponents/Label';
 import Badge from '../UI/Badge';
@@ -21,9 +20,10 @@ const Rankings = props => {
 
   const width = 1000;
   const height = 542;
-  const margin = {top: 45, right: 150, bottom: 60, left: 110};
-  const innerWidth = width - margin.left - margin.right;
-  const innerHeight = height - margin.top - margin.bottom;
+  const marginRight = 150;
+  const marginLeft = 110;
+  const innerWidth = width - marginLeft - marginRight;
+  const innerHeight = height - props.margin.top - props.margin.bottom;
 
   const xScale = d3.scalePoint()
     .domain(props.data.years)
@@ -38,18 +38,6 @@ const Rankings = props => {
     }
   };
 
-  const mouseEnterHandler = (id) => {
-    props.onMouseEvents(id);
-  };
-
-  const mouseLeaveHandler = () => {
-    props.onMouseEvents("");
-  };
-
-  const t = d3.transition()
-    .duration(400)
-    .ease(d3.easeBackOut);
-
   return (
     <Card>
       <h2>Rankings</h2>
@@ -61,34 +49,32 @@ const Rankings = props => {
       <ChartContainer
         width={width}
         height={height}
-        margin={margin}
+        margin={{top: props.margin.top, right: marginRight, bottom: props.margin.bottom, left: marginLeft}}
       >
-        <Axis 
-          type="band"
-          data={props.data.years}
-          scale={xScale}
-          ticks={props.data.years}
-          innerWidth={innerWidth}
-          innerHeight={innerHeight}
-          hideLine={true}
-        />
         {props.data.years.map(year => (
-          <line 
-            className="axis-line"
+          <g 
             key={`line-year-${year}`}
-            x1={xScale(year)}
-            y1={innerHeight}
-            x2={xScale(year)}
-            y2={0}
-            strokeDasharray={"6 4"}
-          />
+            className="axis"
+            transform={`translate(${xScale(year)}, 0)`}
+          >
+            <line 
+              x1={0}
+              y1={innerHeight}
+              x2={0}
+              y2={0}
+              strokeDasharray={"6 4"}
+            />
+            <text
+              x={0}
+              y={innerHeight + 40}
+              textAnchor="middle"
+            >
+              {year}
+            </text>
+          </g>
         ))}
         {props.data.experience.map((framework, i) => (
-          <g 
-            key={`curve-${framework.id}`}
-            onMouseEnter={() => mouseEnterHandler(framework.id)}
-            onMouseLeave={mouseLeaveHandler}
-          >
+          <g key={`curve-${framework.id}`}>
             <Curve
               data={framework[activeFilter]}
               xScale={xScale}
@@ -97,8 +83,6 @@ const Rankings = props => {
               yAccessor="rank"
               stroke={props.colorScale(framework.id)}
               strokeWidth={5}
-              transition={t}
-              isInactive={props.highlightedFramework.length > 0 && props.highlightedFramework !== framework.id}
             />
             {framework[activeFilter][0].rank &&
               <Label
@@ -107,8 +91,6 @@ const Rankings = props => {
                 color={props.colorScale(framework.id)}
                 label={framework.name}
                 textAnchor={"end"}
-                transition={t}
-                isInactive={props.highlightedFramework.length > 0 && props.highlightedFramework !== framework.id}
               />
             }
             <Label
@@ -117,8 +99,6 @@ const Rankings = props => {
               color={props.colorScale(framework.id)}
               label={framework.name}
               textAnchor={"start"}
-              transition={t}
-              isInactive={props.highlightedFramework.length > 0 && props.highlightedFramework !== framework.id}
             />
             {framework[activeFilter].map((selection, i) => (
               <Fragment key={`${framework.id}-selection-${i}`}>
@@ -127,15 +107,13 @@ const Rankings = props => {
                     translation={[xScale(selection.year), yScale(selection.rank)]}
                     strokeColor={props.colorScale(framework.id)}
                     label={`${Math.round(selection.percentage_question)}%`}
-                    transition={t}
-                    isInactive={props.highlightedFramework.length > 0 && props.highlightedFramework !== framework.id}
                   />
                 }
               </Fragment>
             ))}
           </g>
         ))}
-      </ChartContainer>
+      </ChartContainer> 
     </Card>
   )
 };

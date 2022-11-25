@@ -1,9 +1,8 @@
-.axis-line {
+.axis line {
   stroke: #888b8d;
 }
 
-.axis-tick,
-.axis-label {
+.axis text {
   font-size: 14px;
   fill: #374f5e;
 }

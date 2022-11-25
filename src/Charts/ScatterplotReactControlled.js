@@ -1,11 +1,10 @@
 import * as d3 from 'd3';
-
 import Card from '../UI/Card';
 import ChartContainer from '../ChartComponents/ChartContainer';
 import Circle from '../ChartComponents/Circle';
 import Axis from '../ChartComponents/Axis';
 
-const Scatterplot = props => {
+const ScatterplotReactControlled = props => {
   const width = 300;
   const height = 245;
   const innerWidth = width - props.margin.left - props.margin.right;
@@ -18,10 +17,6 @@ const Scatterplot = props => {
   const yScale = d3.scaleLinear()
     .domain([0, 100])
     .range([innerHeight, 0]);
-
-  const mouseEventHandler = (id) => {
-    props.onMouseEvents(id);
-  };
 
   return (
     <Card>
@@ -48,18 +43,15 @@ const Scatterplot = props => {
         {props.data.map(framework => (
           <Circle 
             key={`circle-${framework.id}`}
-            framework={framework.id}
             cx={xScale(framework.user_count)}
             cy={yScale(framework.retention_percentage)}
             r={6}
             fill={props.colorScale(framework.id)}
-            isInactive={props.highlightedFramework.length > 0 && props.highlightedFramework !== framework.id}
-            onMouseEvents={mouseEventHandler}
           />
         ))}
-      </ChartContainer>
+      </ChartContainer> 
     </Card>
   )
 };
 
-export default Scatterplot;
+export default ScatterplotReactControlled;

@@ -5,7 +5,7 @@ const ChartContainer = props => {
         {props.children}
       </g>
     </svg>
-  )
+  );
 };
 
 export default ChartContainer;

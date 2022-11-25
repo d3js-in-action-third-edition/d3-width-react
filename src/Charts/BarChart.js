@@ -1,9 +1,9 @@
-import * as d3 from 'd3';
+import * as d3 from "d3";
 
 import Card from '../UI/Card';
 import ChartContainer from '../ChartComponents/ChartContainer';
-import Axis from '../ChartComponents/Axis';
-import Rectangle from '../ChartComponents/Rectangle';
+import Axis from "../ChartComponents/Axis";
+import Rectangle from "../ChartComponents/Rectangle";
 
 const BarChart = props => {
   const width = 300;
@@ -31,10 +31,6 @@ const BarChart = props => {
     .domain([0, 100])
     .range([innerHeight, 0]);
 
-  const mouseEventHandler = (id) => {
-    props.onMouseEvents(id);
-  };
-
   return (
     <Card>
       <h2>Awareness</h2>
@@ -45,12 +41,10 @@ const BarChart = props => {
       >
         <Axis 
           type="band"
-          data={awarenessData}
           scale={xScale}
           ticks={awarenessData.map(d => d.name)}
           innerWidth={innerWidth}
           innerHeight={innerHeight}
-          rotateTickLabels={true}
         />
         <Axis 
           type="left"
@@ -62,17 +56,14 @@ const BarChart = props => {
         {awarenessData.map(framework => (
           <Rectangle
             key={`rectangle-${framework.id}`}
-            framework={framework.id}
             x={xScale(framework.name)}
             y={yScale(framework.awareness_percentage)}
             width={xScale.bandwidth()}
             height={innerHeight - yScale(framework.awareness_percentage)}
             fill={props.colorScale(framework.id)}
-            isInactive={props.highlightedFramework.length > 0 && props.highlightedFramework !== framework.id}
-            onMouseEvents={mouseEventHandler}
           />
         ))}
-      </ChartContainer>
+      </ChartContainer> 
     </Card>
   )
 };
